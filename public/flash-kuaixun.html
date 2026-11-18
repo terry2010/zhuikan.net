@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>快讯 dsh-rss-news-flash-kuaixun · zhuikan.net</title>
+<meta name="description" content="财经快讯 60 秒一轮直达 dsh 新闻面板——财联社、金十、华尔街见闻等六源聚合。dsh-rss-news-daily 的伴随插件。">
+<meta property="og:title" content="快讯 · 60 秒财经电报直达 dsh">
+<meta property="og:description" content="六源聚合、多源互证、每小时 AI 快报——dsh-rss-news-daily 伴随插件。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#151517">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>
+if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.dataset.theme = 'light'
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="skip-link" href="#main">跳到内容</a>
+  <div class="wrap">
+    <a class="brand" href="index.html">追看<em>zhuikan.net</em></a>
+    <div class="links">
+      <a href="index.html#companions">伴随插件</a>
+      <a class="hide-s" href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-flash-kuaixun" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="phero">
+    <div class="wrap">
+      <div class="pdoc">
+        <a class="back" href="index.html#companions">‹ 伴随插件</a>
+        <div class="eyebrow">COMPANION PLUGIN · 快讯</div>
+        <h1>dsh-rss-news-flash-kuaixun<span class="pver" data-ver-for="dsh-rss-news-flash-kuaixun">v0.2.0</span></h1>
+        <p class="tagline">财经快讯 60 秒一轮直达 dsh 新闻面板——六源聚合，AI 快报与桌面通知开箱即用。</p>
+        <div class="cta">
+          <span class="install"><code>dsh plugin --profile desktop add <b>dsh-rss-news-flash-kuaixun</b></code><button class="copy" data-copy="dsh plugin --profile desktop add dsh-rss-news-flash-kuaixun">复制</button></span>
+          <a class="btn primary" href="https://github.com/terry2010/dsh-rss-news-flash-kuaixun" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://www.npmjs.com/package/dsh-rss-news-flash-kuaixun" rel="noopener">npm ↗</a>
+        </div>
+      </div>
+      <div class="pdemo" aria-hidden="true">
+        <div class="pdemo-head">快讯 · ticker<span class="live">演示数据</span></div>
+        <div class="pdemo-body">
+          <div class="pdemo-feed">
+            <div class="pdemo-row"><span class="t">14:00:32</span><span class="s">财联社</span><span class="x">[演示] 六源聚合 · 每 60 秒刷新一轮</span></div>
+            <div class="pdemo-row"><span class="t">13:59:10</span><span class="s">华尔街见闻</span><span class="x">[演示] 同一事件多源互证，自动标注源数</span><span class="n">×3</span></div>
+            <div class="pdemo-row"><span class="t">13:58:44</span><span class="s">金十</span><span class="x">[演示] 关键词命中即弹桌面通知</span></div>
+            <div class="pdemo-row"><span class="t">13:57:01</span><span class="s">同花顺</span><span class="x">[演示] 密排时序 ticker 视图</span></div>
+            <div class="pdemo-row"><span class="t">13:55:18</span><span class="s">东方财富</span><span class="x">[演示] 每小时 AI 快报 · 互证优先</span><span class="n">×2</span></div>
+            <div class="pdemo-row"><span class="t">13:54:40</span><span class="s">新浪财经</span><span class="x">[演示] 数据全部保存在本机</span></div>
+            <div class="pdemo-row"><span class="t">14:00:32</span><span class="s">财联社</span><span class="x">[演示] 六源聚合 · 每 60 秒刷新一轮</span></div>
+            <div class="pdemo-row"><span class="t">13:59:10</span><span class="s">华尔街见闻</span><span class="x">[演示] 同一事件多源互证，自动标注源数</span><span class="n">×3</span></div>
+            <div class="pdemo-row"><span class="t">13:58:44</span><span class="s">金十</span><span class="x">[演示] 关键词命中即弹桌面通知</span></div>
+            <div class="pdemo-row"><span class="t">13:57:01</span><span class="s">同花顺</span><span class="x">[演示] 密排时序 ticker 视图</span></div>
+            <div class="pdemo-row"><span class="t">13:55:18</span><span class="s">东方财富</span><span class="x">[演示] 每小时 AI 快报 · 互证优先</span><span class="n">×2</span></div>
+            <div class="pdemo-row"><span class="t">13:54:40</span><span class="s">新浪财经</span><span class="x">[演示] 数据全部保存在本机</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pbody">
+    <div class="wrap">
+      <article class="prose">
+        <h2>它做什么</h2>
+        <p>为主插件注入一条 <strong>60 秒轮询的实时财经快讯流</strong>，并复用主插件的 AI 快报产线、桌面通知与阅读器界面。缺失主插件时会弹层提示而不会静默失效。</p>
+
+        <h2>功能</h2>
+        <ul>
+          <li><strong>六源快讯聚合</strong>：财联社电报 / 金十数据 / 华尔街见闻 / 东方财富 / 同花顺 / 新浪财经 7×24，60 秒一轮轻量 JSON 端点轮询，写入本地 SQLite。</li>
+          <li><strong>「快讯」阅读器 tab</strong>：密排时序 ticker 视图，独立于普通订阅列表。</li>
+          <li><strong>多源互证标记</strong>：同一条新闻被多个源报道时自动聚类并标注源数——互证越多越重要。</li>
+          <li><strong>三通道提醒 + 桌面通知</strong>：关键词命中 / 源标重要 / 多源互证，命中即弹桌面通知并跳快讯页。</li>
+          <li><strong>每小时「快讯快报」</strong>：主插件 LLM 产线整点生成 AI 摘要（≤12 条，互证优先）。</li>
+          <li><strong>数据全本地</strong>：<code>kuaixun.db</code> / <code>alerts.json</code>，随主插件完整备份覆盖。</li>
+        </ul>
+
+        <h2>依赖</h2>
+        <ul>
+          <li><code>dsh-rss-news-daily ≥ 1.1.0</code>（rndSources API v1+；完整功能需 v2+，推荐 v3）。</li>
+          <li>建议搭配 <a href="browser-fetch.html">dsh-rss-news-browser-fetch</a>：不装也能用，但<strong>同花顺和金十两个源将无法更新</strong>——它们的接口只响应真实浏览器请求。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <small>© <span id="yr">2026</span> zhuikan.net · dsh-rss-news-flash-kuaixun · MIT License</small>
+    <div class="flinks">
+      <a href="index.html">首页</a>
+      <a href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-flash-kuaixun" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear()
+// 版本徽标：先问自家更新端点（4s 超时），不可达回退 npmmirror 国内镜像；都失败保留内嵌值
+const fillVers = (m) => {
+  if (!m) return false
+  document.querySelectorAll('[data-ver-for]').forEach((el) => { if (m[el.dataset.verFor]) el.textContent = 'v' + m[el.dataset.verFor] })
+  return true
+}
+fetch('https://news-update.zhuikan.net/v1/versions', { signal: AbortSignal.timeout(4000) })
+  .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then((d) => { if (!fillVers(d?.versions)) return Promise.reject('empty') })
+  .catch(() => Promise.all([...document.querySelectorAll('[data-ver-for]')].map((el) =>
+    fetch(`https://registry.npmmirror.com/-/package/${el.dataset.verFor}/dist-tags`, { signal: AbortSignal.timeout(4000) })
+      .then((r) => r.ok ? r.json() : null).then((d) => d?.latest && (el.textContent = 'v' + d.latest)).catch(() => {})
+  )))
+
+document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '已复制'; setTimeout(() => b.textContent = '复制', 1500) }
+  catch { b.textContent = '复制失败' }
+}))
+</script>
+</body>
+</html>

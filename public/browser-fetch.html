@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>browserFetch dsh-rss-news-browser-fetch · zhuikan.net</title>
+<meta name="description" content="浏览器传输：专用 Chrome 实例 + CDP，为其他插件提供真实浏览器会话内的请求能力。dsh 基建服务插件。">
+<meta property="og:title" content="browserFetch · 真实浏览器会话里的 fetch">
+<meta property="og:description" content="专用 Chrome 实例 + CDP，兜底对 Node 请求不响应的数据源——dsh 服务插件。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#151517">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>
+if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.dataset.theme = 'light'
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="skip-link" href="#main">跳到内容</a>
+  <div class="wrap">
+    <a class="brand" href="index.html">追看<em>zhuikan.net</em></a>
+    <div class="links">
+      <a href="index.html#companions">伴随插件</a>
+      <a class="hide-s" href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-browser-fetch" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="phero">
+    <div class="wrap">
+      <div class="pdoc">
+        <a class="back" href="index.html#companions">‹ 伴随插件</a>
+        <div class="eyebrow">SERVICE PLUGIN · 浏览器传输</div>
+        <h1>dsh-rss-news-browser-fetch<span class="pver" data-ver-for="dsh-rss-news-browser-fetch">v0.2.1</span></h1>
+        <p class="tagline">真实浏览器会话里的 fetch——兜底那些对 Node 请求不响应的数据源。</p>
+        <div class="cta">
+          <span class="install"><code>dsh plugin --profile desktop add <b>dsh-rss-news-browser-fetch</b></code><button class="copy" data-copy="dsh plugin --profile desktop add dsh-rss-news-browser-fetch">复制</button></span>
+          <a class="btn primary" href="https://github.com/terry2010/dsh-rss-news-browser-fetch" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://www.npmjs.com/package/dsh-rss-news-browser-fetch" rel="noopener">npm ↗</a>
+        </div>
+      </div>
+      <div class="pdemo" aria-hidden="true">
+        <div class="pdemo-head">browserFetch · 域→tab 池<span class="live">演示</span></div>
+        <div class="pdemo-body">
+          <div class="pdemo-feed">
+            <div class="pdemo-row"><span class="t">14:00:31</span><span class="s">10jqka</span><span class="x">同源页内 fetch · 200 · 412ms</span></div>
+            <div class="pdemo-row"><span class="t">14:00:30</span><span class="s">jin10</span><span class="x">同源页内 fetch · 200 · 388ms</span></div>
+            <div class="pdemo-row"><span class="t">13:59:55</span><span class="s">10jqka</span><span class="x">tab 漂移巡检 · 无漂移</span></div>
+            <div class="pdemo-row"><span class="t">13:59:30</span><span class="s">jin10</span><span class="x">同源页内 fetch · 200 · 402ms</span></div>
+            <div class="pdemo-row"><span class="t">13:58:12</span><span class="s">bbs.example</span><span class="x">授权完成 · 会话已复用</span></div>
+            <div class="pdemo-row"><span class="t">13:57:48</span><span class="s">10jqka</span><span class="x">同源页内 fetch · 200 · 397ms</span></div>
+            <div class="pdemo-row"><span class="t">14:00:31</span><span class="s">10jqka</span><span class="x">同源页内 fetch · 200 · 412ms</span></div>
+            <div class="pdemo-row"><span class="t">14:00:30</span><span class="s">jin10</span><span class="x">同源页内 fetch · 200 · 388ms</span></div>
+            <div class="pdemo-row"><span class="t">13:59:55</span><span class="s">10jqka</span><span class="x">tab 漂移巡检 · 无漂移</span></div>
+            <div class="pdemo-row"><span class="t">13:59:30</span><span class="s">jin10</span><span class="x">同源页内 fetch · 200 · 402ms</span></div>
+            <div class="pdemo-row"><span class="t">13:58:12</span><span class="s">bbs.example</span><span class="x">授权完成 · 会话已复用</span></div>
+            <div class="pdemo-row"><span class="t">13:57:48</span><span class="s">10jqka</span><span class="x">同源页内 fetch · 200 · 397ms</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pbody">
+    <div class="wrap">
+      <article class="prose">
+        <h2>它做什么</h2>
+        <p>部分数据接口对非浏览器客户端响应不稳定——Node <code>fetch</code> 会连接挂起、报错，或拿到一个需要执行 JS 才有内容的页面。本插件经 CDP 在真实 Chrome tab 内执行 <code>fetch()</code>：请求发自用户自己的浏览器会话，同源上下文无 CORS 限制、自动携带该域 cookie——与你自己打开网页查看等效。</p>
+        <p>它是<strong>服务插件</strong>：自身不做抓取业务，只向其他插件提供「在本机真实浏览器页面里发请求」的能力。零运行时依赖、无 Selenium/Puppeteer。</p>
+
+        <h2>功能</h2>
+        <ul>
+          <li><strong>专用 Chrome 实例</strong>：懒拉起（首次 fetch 才启动），独立持久 profile——cookie/登录态与你的日常浏览器完全隔离，登录一次长期有效。</li>
+          <li><strong>域白名单</strong>：调用方显式声明可抓域，只放行声明过的精确 host，无开放代理面。</li>
+          <li><strong>授权流</strong>：站点需要登录/交互验证时把 tab 顶到前台，由你本人完成一次授权，之后自动复用。</li>
+          <li><strong>watchdog</strong>：tab 被关自动重建、URL 漂移自动拉回、实例崩溃自动重拉；连续手动关闭 ≥3 次转为暂停（尊重你的意愿），设置页可恢复。</li>
+          <li><strong>冷启动静默</strong>：拉起时窗口最小化——浏览器传输是无声基建。</li>
+          <li><strong>设置页</strong>：查看实例/域/授权状态、「打开 Chrome」调试入口、「清除所有数据」一键清空。</li>
+        </ul>
+
+        <h2>依赖</h2>
+        <ul>
+          <li>需要一个 Chromium 系浏览器（自动探测 Chrome / Edge / Chromium / Brave，支持 macOS / Windows / Linux）。</li>
+          <li>被其他插件按需 inject——<a href="flash-kuaixun.html">快讯</a>的同花顺、金十源需要它才能更新。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <small>© <span id="yr">2026</span> zhuikan.net · dsh-rss-news-browser-fetch · MIT License</small>
+    <div class="flinks">
+      <a href="index.html">首页</a>
+      <a href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-browser-fetch" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear()
+// 版本徽标：先问自家更新端点（4s 超时），不可达回退 npmmirror 国内镜像；都失败保留内嵌值
+const fillVers = (m) => {
+  if (!m) return false
+  document.querySelectorAll('[data-ver-for]').forEach((el) => { if (m[el.dataset.verFor]) el.textContent = 'v' + m[el.dataset.verFor] })
+  return true
+}
+fetch('https://news-update.zhuikan.net/v1/versions', { signal: AbortSignal.timeout(4000) })
+  .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then((d) => { if (!fillVers(d?.versions)) return Promise.reject('empty') })
+  .catch(() => Promise.all([...document.querySelectorAll('[data-ver-for]')].map((el) =>
+    fetch(`https://registry.npmmirror.com/-/package/${el.dataset.verFor}/dist-tags`, { signal: AbortSignal.timeout(4000) })
+      .then((r) => r.ok ? r.json() : null).then((d) => d?.latest && (el.textContent = 'v' + d.latest)).catch(() => {})
+  )))
+
+document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '已复制'; setTimeout(() => b.textContent = '复制', 1500) }
+  catch { b.textContent = '复制失败' }
+}))
+</script>
+</body>
+</html>

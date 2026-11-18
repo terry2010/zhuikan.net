@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>追看 dsh-rss-news-zhuikan · zhuikan.net</title>
+<meta name="description" content="想看的网站没有 RSS？把列表页地址贴进来，剩下的交给 AI。dsh-rss-news-daily 的伴随插件。">
+<meta property="og:title" content="追看 · 无 RSS 网站的订阅器">
+<meta property="og:description" content="粘一个列表页地址，AI 学会页面结构，定时巡检只推新增——dsh-rss-news-daily 伴随插件。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#151517">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>
+if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.dataset.theme = 'light'
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="skip-link" href="#main">跳到内容</a>
+  <div class="wrap">
+    <a class="brand" href="index.html">追看<em>zhuikan.net</em></a>
+    <div class="links">
+      <a href="index.html#companions">伴随插件</a>
+      <a class="hide-s" href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-zhuikan" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="phero">
+    <div class="wrap">
+      <div class="pdoc">
+        <a class="back" href="index.html#companions">‹ 伴随插件</a>
+        <div class="eyebrow">COMPANION PLUGIN · 追看</div>
+        <h1>dsh-rss-news-zhuikan<span class="pver" data-ver-for="dsh-rss-news-zhuikan">v0.2.0</span></h1>
+        <p class="tagline">想看的网站没有 RSS？把它的列表页地址贴进来，剩下的交给 AI。</p>
+        <div class="cta">
+          <span class="install"><code>dsh plugin --profile desktop add <b>dsh-rss-news-zhuikan</b></code><button class="copy" data-copy="dsh plugin --profile desktop add dsh-rss-news-zhuikan">复制</button></span>
+          <a class="btn primary" href="https://github.com/terry2010/dsh-rss-news-zhuikan" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://www.npmjs.com/package/dsh-rss-news-zhuikan" rel="noopener">npm ↗</a>
+        </div>
+      </div>
+      <div class="pdemo" aria-hidden="true">
+        <div class="pdemo-head">追看 · 全部新闻<span class="live">演示</span></div>
+        <div class="pdemo-body">
+          <div class="pdemo-feed">
+            <div class="pdemo-row"><span class="t">14:02</span><span class="s">追·影视站</span><span class="x">示例剧集 · 第 12 集已更新</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">13:47</span><span class="s">RSS</span><span class="x">示例博客 · 本周开源热点</span></div>
+            <div class="pdemo-row"><span class="t">13:15</span><span class="s">追·论坛</span><span class="x">版块新帖：冬季维护公告与镜像列表</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">12:58</span><span class="s">追·游戏站</span><span class="x">更新补丁 v3.2 下载页放出</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">12:20</span><span class="s">RSS</span><span class="x">示例媒体 · 多模态模型评测榜单更新</span></div>
+            <div class="pdemo-row"><span class="t">11:41</span><span class="s">追·公告板</span><span class="x">站点迁移完成，新域名启用通知</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">14:02</span><span class="s">追·影视站</span><span class="x">示例剧集 · 第 12 集已更新</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">13:47</span><span class="s">RSS</span><span class="x">示例博客 · 本周开源热点</span></div>
+            <div class="pdemo-row"><span class="t">13:15</span><span class="s">追·论坛</span><span class="x">版块新帖：冬季维护公告与镜像列表</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">12:58</span><span class="s">追·游戏站</span><span class="x">更新补丁 v3.2 下载页放出</span><span class="n">新</span></div>
+            <div class="pdemo-row"><span class="t">12:20</span><span class="s">RSS</span><span class="x">示例媒体 · 多模态模型评测榜单更新</span></div>
+            <div class="pdemo-row"><span class="t">11:41</span><span class="s">追·公告板</span><span class="x">站点迁移完成，新域名启用通知</span><span class="n">新</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pbody">
+    <div class="wrap">
+      <article class="prose">
+        <h2>它做什么</h2>
+        <p>很多站点——影视资源站、游戏下载页、论坛板块、公告列表——根本不提供 RSS/Atom。追看让你直接订阅这些<strong>普通列表页</strong>：AI 读一遍页面结构，自己学会「标题在哪、链接在哪、发布时间在哪」，之后定时巡检、只推新增。新出现的条目以 <code>[追]</code> 前缀进入主插件的「全部新闻」，和普通 RSS 条目混排，不用换地方看。</p>
+
+        <h2>功能</h2>
+        <ul>
+          <li><strong>订阅无 RSS 列表页</strong>：粘地址 → AI 提炼结构生成提取规则并当场试抽验证；页面有多个列表区块时逐个标出供勾选，每个区域都带真实样例条目可核对。</li>
+          <li><strong>关键词命中才推送</strong>：可为每个站或全局配关键词，只有标题/分类/板块命中的新条目才弹桌面通知；命中记录页可回看触发依据。</li>
+          <li><strong>站点自康复</strong>：规则因改版失效时标为「疑似改版」，一键重新分析接管；需登录的站点在专用浏览器里由你本人完成一次登录，会话自动复用；被墙站点勾选即复用主插件代理。</li>
+          <li><strong>默认只读</strong>：追看条目默认不参与 AI 评分/翻译/日报管线，可在源设置里逐项打开。</li>
+        </ul>
+
+        <h2>使用方式</h2>
+        <ul>
+          <li>先安装主插件 <a href="index.html">dsh-rss-news-daily</a>——检测到后主插件自动激活本插件。</li>
+          <li>阅读器「追看」tab 粘入列表页地址，点「分析页面」，勾选要订阅的区块即可。</li>
+        </ul>
+
+        <h2>依赖与隐私</h2>
+        <ul>
+          <li>需要 <code>dsh-rss-news-daily</code>（rndSources 服务）——它是伴随插件，不能独立运行。</li>
+          <li>站点、规则、条目、关键词全部保存在本机；生成规则时发送给 AI 的是页面结构摘要而非完整页面。</li>
+          <li>本插件只访问你本可在浏览器中手动打开的公开页面；请自行确认并遵守目标站点的访问条款。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <small>© <span id="yr">2026</span> zhuikan.net · dsh-rss-news-zhuikan · MIT License</small>
+    <div class="flinks">
+      <a href="index.html">首页</a>
+      <a href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-zhuikan" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear()
+// 版本徽标：先问自家更新端点（4s 超时），不可达回退 npmmirror 国内镜像；都失败保留内嵌值
+const fillVers = (m) => {
+  if (!m) return false
+  document.querySelectorAll('[data-ver-for]').forEach((el) => { if (m[el.dataset.verFor]) el.textContent = 'v' + m[el.dataset.verFor] })
+  return true
+}
+fetch('https://news-update.zhuikan.net/v1/versions', { signal: AbortSignal.timeout(4000) })
+  .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then((d) => { if (!fillVers(d?.versions)) return Promise.reject('empty') })
+  .catch(() => Promise.all([...document.querySelectorAll('[data-ver-for]')].map((el) =>
+    fetch(`https://registry.npmmirror.com/-/package/${el.dataset.verFor}/dist-tags`, { signal: AbortSignal.timeout(4000) })
+      .then((r) => r.ok ? r.json() : null).then((d) => d?.latest && (el.textContent = 'v' + d.latest)).catch(() => {})
+  )))
+
+document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '已复制'; setTimeout(() => b.textContent = '复制', 1500) }
+  catch { b.textContent = '复制失败' }
+}))
+</script>
+</body>
+</html>

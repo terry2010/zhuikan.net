@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>看 · zhuikan.net — dsh 里的每日新闻精选</title>
+<meta name="description" content="dsh-rss-news-daily：dsh 里的每日 RSS 精选阅读器。订阅、快报、每日精选，一次安装，每天一眼。">
+<meta property="og:title" content="看 zhuikan.net · dsh 里的每日新闻精选">
+<meta property="og:description" content="订阅、快报、每日精选——dsh-rss-news-daily 与三个伴随插件，数据都在本机。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#151517">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>
+// 跟随系统主题（默认深色，与阅读器一致）
+if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.dataset.theme = 'light'
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="skip-link" href="#features">跳到内容</a>
+  <div class="wrap">
+    <a class="brand" href="#">追看<em>zhuikan.net</em></a>
+    <div class="links">
+      <a href="#features">功能</a>
+      <a href="#companions">伴随插件</a>
+      <a href="#update">更新通道</a>
+      <a class="hide-s" href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-daily" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- SR-1 hero：恰一屏；h1 带类目名词+在哪；首屏有硬事实；moment = 右侧实况阅读带 -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">DSH PLUGIN · RSS READER</div>
+        <h1>dsh 里的<br>每日新闻精选<span class="thin">看新闻，吃饱饭。</span></h1>
+        <p class="sub">不用在多个网站之间来回切换，也能及时掌握自己关心的新闻。订阅、快报、每日精选——数据都在本机。</p>
+        <div class="facts">
+          <div><b data-ver-for="dsh-rss-news-daily">v1.2.0</b>当前版本</div>
+          <div><b>1×/天</b>精选日报</div>
+          <div><b>3</b>伴随插件</div>
+          <div><b>MIT</b>开源许可</div>
+        </div>
+        <div class="cta">
+          <span class="install"><code>dsh plugin --profile desktop add <b>dsh-rss-news-daily</b></code><button class="copy" data-copy="dsh plugin --profile desktop add dsh-rss-news-daily">复制</button></span>
+          <a class="btn primary" href="https://github.com/terry2010/dsh-rss-news-daily#安装" rel="noopener">安装指南</a>
+          <a class="btn" href="https://www.npmjs.com/package/dsh-rss-news-daily" rel="noopener">npm ↗</a>
+        </div>
+      </div>
+
+      <!-- the moment：常驻实况带，复刻阅读器语言的竖向滚动环 -->
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          <span class="mock-title">新闻精选 · 今日</span>
+          <span class="mock-live">演示</span>
+        </div>
+        <div class="mock-status">18/21 源 · 今日+142 · 本次+37 · 共 24,531 条 · 健康</div>
+        <div class="mock-mask">
+          <div class="mock-feed">
+            <div class="mock-item"><h3><span class="mock-tag">科技</span>新一代开源模型在长上下文基准上追平闭源旗舰</h3><p>多项评测显示差距收敛至个位数；从业者更关心部署成本与许可条款的变化。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">行业</span>主流浏览器将全面默认禁用第三方 Cookie</h3><p>广告技术栈迎来最终期限，第一批迁移案例的实测数据开始公开。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">AI</span>Agent 框架进入「工具协议」整合期</h3><p>多家运行时宣布兼容同一套工具描述规范，插件生态开始跨宿主流通。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">财经</span>示例快讯 · 宏观板块异动摘要</h3><p>演示用摘要文本：展示条目入选精选后的摘要样式。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">开源</span>Git 3.0 草案公布：新对象格式与更快的部分克隆</h3><p>大型仓库的首屏克隆时间有望再砍一半，迁移指南随草案释出。</p></div>
+            <!-- 环：同组再复制一份实现无缝 loop -->
+            <div class="mock-item"><h3><span class="mock-tag">科技</span>新一代开源模型在长上下文基准上追平闭源旗舰</h3><p>多项评测显示差距收敛至个位数；从业者更关心部署成本与许可条款的变化。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">行业</span>主流浏览器将全面默认禁用第三方 Cookie</h3><p>广告技术栈迎来最终期限，第一批迁移案例的实测数据开始公开。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">AI</span>Agent 框架进入「工具协议」整合期</h3><p>多家运行时宣布兼容同一套工具描述规范，插件生态开始跨宿主流通。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">财经</span>示例快讯 · 宏观板块异动摘要</h3><p>演示用摘要文本：展示条目入选精选后的摘要样式。</p></div>
+            <div class="mock-item"><h3><span class="mock-tag">开源</span>Git 3.0 草案公布：新对象格式与更快的部分克隆</h3><p>大型仓库的首屏克隆时间有望再砍一半，迁移指南随草案释出。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-h">
+        <span class="no">01 / FEATURES</span>
+        <h2>每天一眼，掌握重点</h2>
+        <p>订阅哪些来源、关注什么内容、何时更新，都由你自己决定。条目、来源与偏好全部保存在本机。</p>
+      </div>
+      <div class="grid">
+        <div class="card"><span class="glyph">☀</span><h3>每日精选</h3><p>定时抓取订阅源，AI 评分整理出当天的重点新闻与整体总结——没时间逐条读，先看精选就有概览。</p></div>
+        <div class="card"><span class="glyph">⚡</span><h3>时段快报</h3><p>每个抓取周期产出一份快报，快速浏览最近值得留意的动态，不错过窗口期。</p></div>
+        <div class="card"><span class="glyph">⌘</span><h3>订阅自由</h3><p>内置源起步，可加任意 RSS/Atom 链接或导入 OPML；没有 RSS 的网页交给伴随插件。</p></div>
+        <div class="card"><span class="glyph">♥</span><h3>越用越懂你</h3><p>对条目表达喜欢或不感兴趣，反馈会调整后续推荐；分类、抓取时间、精选时刻全部可配。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="companions">
+    <div class="wrap">
+      <div class="sec-h">
+        <span class="no">02 / COMPANIONS</span>
+        <h2>伴随插件</h2>
+        <p>主插件吃 RSS，伴随插件扩展抓取与呈现边界——都通过公开的 rndSources 服务接入。</p>
+      </div>
+      <div class="plist">
+        <a class="pitem" href="zhuikan.html">
+          <span class="name">dsh-rss-news-zhuikan</span>
+          <span class="desc">无 RSS 网站的订阅器：粘一个列表页网址，插件学结构、定期抓新条目。</span>
+          <span class="ver" data-ver-for="dsh-rss-news-zhuikan">v0.2.0</span>
+          <span class="go">介绍 →</span>
+        </a>
+        <a class="pitem" href="flash-kuaixun.html">
+          <span class="name">dsh-rss-news-flash-kuaixun</span>
+          <span class="desc">快讯源扩展包：财联社、金十、华尔街见闻等电报式快讯接入同一条管线。</span>
+          <span class="ver" data-ver-for="dsh-rss-news-flash-kuaixun">v0.2.0</span>
+          <span class="go">介绍 →</span>
+        </a>
+        <a class="pitem" href="browser-fetch.html">
+          <span class="name">dsh-rss-news-browser-fetch</span>
+          <span class="desc">浏览器级抓取兜底：常驻 Chrome + CDP，处理反爬与签名接口。</span>
+          <span class="ver" data-ver-for="dsh-rss-news-browser-fetch">v0.2.1</span>
+          <span class="go">介绍 →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="update">
+    <div class="wrap">
+      <div class="sec-h">
+        <span class="no">03 / UPDATE</span>
+        <h2>更新通道</h2>
+        <p>插件每天检查一次新版本；有新版本时阅读器顶部会出现提示条，一键前往升级说明。</p>
+      </div>
+      <div class="chan">
+        <dl>
+          <dt>更新检查端点</dt>
+          <dd><code>news-update.zhuikan.net/v1/check</code></dd>
+          <dt>上报内容</dt>
+          <dd>仅插件版本号 + 已安装伴随插件版本（<a href="privacy.html">隐私说明</a>）</dd>
+          <dt>检查频率</dt>
+          <dd>启动 30 分钟后一次，每个自然日最多一次</dd>
+        </dl>
+        <dl>
+          <dt>更新日志</dt>
+          <dd><a href="https://github.com/terry2010/dsh-rss-news-daily/releases" rel="noopener">GitHub Releases</a></dd>
+          <dt>升级命令</dt>
+          <dd><code>dsh plugin --profile desktop add dsh-rss-news-daily@latest</code></dd>
+          <dt>关闭检查</dt>
+          <dd>插件设置 <code>updateCheck.enabled = false</code></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <small>© <span id="yr">2026</span> zhuikan.net · dsh-rss-news-daily · MIT License</small>
+    <div class="flinks">
+      <a href="privacy.html">隐私</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-daily" rel="noopener">GitHub</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-daily/issues" rel="noopener">反馈</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- 桌面幻灯片：滚轮整屏切页；窄屏/减动效回退正常滚动 ----
+const root = document.documentElement
+const mainEl = document.querySelector('main')
+const slides = [...mainEl.querySelectorAll(':scope > section')]
+const canDeck = matchMedia('(min-width: 901px) and (prefers-reduced-motion: no-preference)')
+let idx = 0, locked = false, deckOn = false
+
+// 右侧圆点导航
+const dotsWrap = document.createElement('div'); dotsWrap.className = 'dots'
+const dots = slides.map((s, i) => {
+  const b = document.createElement('button'); b.type = 'button'
+  b.title = s.id ? s.querySelector('h1,h2')?.textContent?.slice(0, 12) || s.id : (i === 0 ? '首页' : '结尾')
+  b.onclick = () => go(i); dotsWrap.appendChild(b); return b
+})
+document.body.appendChild(dotsWrap)
+
+function apply() {
+  slides.forEach((s, i) => s.classList.toggle('on', deckOn && i === idx))
+  dots.forEach((d, i) => d.classList.toggle('on', i === idx))
+}
+function go(i) {
+  const n = Math.max(0, Math.min(slides.length - 1, i))
+  if (n === idx) return
+  idx = n; apply()
+}
+function setDeck(on) { deckOn = on; root.classList.toggle('deck-mode', on); apply() }
+
+addEventListener('wheel', (e) => {
+  if (!deckOn) return
+  e.preventDefault()
+  if (locked || Math.abs(e.deltaY) < 10) return
+  locked = true; setTimeout(() => { locked = false }, 800)
+  go(idx + (e.deltaY > 0 ? 1 : -1))
+}, { passive: false })
+
+addEventListener('keydown', (e) => {
+  if (!deckOn) return
+  if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(idx + 1) }
+  else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(idx - 1) }
+  else if (e.key === 'Home') { e.preventDefault(); go(0) }
+  else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1) }
+})
+
+let ty = 0
+addEventListener('touchstart', (e) => { ty = e.touches[0].clientY }, { passive: true })
+addEventListener('touchend', (e) => {
+  if (!deckOn) return
+  const d = ty - e.changedTouches[0].clientY
+  if (Math.abs(d) > 48) go(idx + (d > 0 ? 1 : -1))
+})
+
+// nav/页内锚点 → 切屏（非 deck 退回平滑滚动）
+document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+  const h = a.getAttribute('href')
+  if (h.length < 2) { e.preventDefault(); if (deckOn) go(0); return }
+  const t = document.querySelector(h)
+  const i = slides.indexOf(t)
+  if (i < 0) return
+  e.preventDefault()
+  if (deckOn) go(i); else t.scrollIntoView({ behavior: 'smooth' })
+}))
+
+// 初始 hash 定位到对应屏
+if (location.hash.length > 1) { const t = document.querySelector(location.hash); const i = slides.indexOf(t); if (i > 0) idx = i }
+const mq = () => setDeck(canDeck.matches)
+canDeck.addEventListener?.('change', mq); mq()
+
+document.getElementById('yr').textContent = new Date().getFullYear()
+document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '已复制'; setTimeout(() => b.textContent = '复制', 1500) }
+  catch { b.textContent = '复制失败' }
+}))
+
+// 版本徽标：先问自家更新端点（4s 超时），不可达回退 npmmirror 国内镜像；都失败保留内嵌值
+const fillVers = (m) => {
+  if (!m) return false
+  document.querySelectorAll('[data-ver-for]').forEach((el) => { if (m[el.dataset.verFor]) el.textContent = 'v' + m[el.dataset.verFor] })
+  return true
+}
+fetch('https://news-update.zhuikan.net/v1/versions', { signal: AbortSignal.timeout(4000) })
+  .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then((d) => { if (!fillVers(d?.versions)) return Promise.reject('empty') })
+  .catch(() => Promise.all([...document.querySelectorAll('[data-ver-for]')].map((el) =>
+    fetch(`https://registry.npmmirror.com/-/package/${el.dataset.verFor}/dist-tags`, { signal: AbortSignal.timeout(4000) })
+      .then((r) => r.ok ? r.json() : null).then((d) => d?.latest && (el.textContent = 'v' + d.latest)).catch(() => {})
+  )))
+</script>
+</body>
+</html>

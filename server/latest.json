@@ -1,0 +1,11 @@
+{
+  "latest": "1.2.0",
+  "url": "https://github.com/terry2010/dsh-rss-news-daily/releases",
+  "notes": "",
+  "minSupported": "0.0.0",
+  "companions": {
+    "dsh-rss-news-zhuikan": { "latest": "0.2.0" },
+    "dsh-rss-news-flash-kuaixun": { "latest": "0.2.0" },
+    "dsh-rss-news-browser-fetch": { "latest": "0.2.1" }
+  }
+}

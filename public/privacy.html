@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隐私说明 · zhuikan.net</title>
+<meta name="description" content="dsh-rss-news-daily 及伴随插件的对外网络请求说明：每日更新检查上报的字段、不含的内容、关闭方法。">
+<meta name="theme-color" content="#151517">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>
+if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.dataset.theme = 'light'
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="skip-link" href="#main">跳到内容</a>
+  <div class="wrap">
+    <a class="brand" href="index.html" style="color:var(--fg)">追看<em>zhuikan.net</em></a>
+    <div class="links">
+      <a href="index.html">首页</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-daily" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<section class="pbody pfirst">
+  <div class="wrap">
+  <article class="prose">
+    <h1>隐私说明</h1>
+    <p>本文说明 <code>dsh-rss-news-daily</code> 及其伴随插件对外发起的网络请求。除下表所列，插件不与我们的任何服务器通信。</p>
+
+    <h2>每日更新检查</h2>
+    <p>插件每天最多一次向 <code>news-update.zhuikan.net</code> 发起 POST 请求，上报内容<strong>仅</strong>为：</p>
+    <table>
+      <tr><th>字段</th><th>内容</th><th>示例</th></tr>
+      <tr><td><code>pkg</code></td><td>插件包名</td><td><code>dsh-rss-news-daily</code></td></tr>
+      <tr><td><code>version</code></td><td>当前安装版本</td><td><code>1.2.0</code></td></tr>
+      <tr><td><code>companions</code></td><td>已安装伴随插件及版本</td><td><code>{"dsh-rss-news-zhuikan":"0.2.0"}</code></td></tr>
+    </table>
+    <ul>
+      <li><strong>不包含</strong>：安装 ID、机器标识、操作系统、用户名、订阅内容、阅读记录等任何其他信息。</li>
+      <li>服务端日志可见：请求时间戳与来源 IP（IP 截断至 /24 后落盘，留存不超过 90 天）。这等同于一次"活跃装机量"计数。</li>
+      <li>响应仅用于版本比较与展示升级提示，不执行响应中的任何内容。</li>
+    </ul>
+
+    <h2>如何关闭</h2>
+    <p>在插件设置中关闭更新检查即可完全停止该外联：</p>
+    <p><code>updateCheck.enabled = false</code></p>
+    <p>关闭后不影响任何阅读功能。</p>
+
+    <h2>本站（zhuikan.net）</h2>
+    <p>本网站为纯静态页面：无 Cookie、无统计脚本。页面加载时会向 <code>news-update.zhuikan.net</code>（我们自己的更新端点）发起一次只读 GET 查询插件最新版本号，用于填充页面上的版本徽标——不携带、不上报任何信息。若该端点不可达，会回退向 <code>registry.npmmirror.com</code>（淘宝 npm 镜像，第三方公共服务）做同样的只读查询；两条链路都不影响页面正常使用，失败时页面显示内置的版本号。</p>
+
+    <h2>其他外联</h2>
+    <ul>
+      <li><strong>订阅源抓取</strong>：插件按你的订阅清单直接抓取各新闻源，目标完全由你的配置决定。</li>
+      <li><strong>AI 调用</strong>：使用 AI 评分/总结/翻译时，相关内容发送给你在 dsh 中自行配置的模型服务，处理方式取决于该服务。</li>
+      <li><strong>npm registry</strong>：安装与升级插件本身经由 npm/dsh 插件管理器，遵循其隐私政策。</li>
+    </ul>
+  </article>
+  </div>
+</section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <small>© <span id="yr">2026</span> zhuikan.net · dsh-rss-news-daily · MIT License</small>
+    <div class="flinks">
+      <a href="index.html">首页</a>
+      <a href="https://github.com/terry2010/dsh-rss-news-daily" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear()</script>
+</body>
+</html>
