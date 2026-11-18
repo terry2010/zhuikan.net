@@ -33,7 +33,7 @@ if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElemen
     <p>本文说明 <code>dsh-rss-news-daily</code> 及其伴随插件对外发起的网络请求。除下表所列，插件不与我们的任何服务器通信。</p>
 
     <h2>每日更新检查</h2>
-    <p>插件每天最多一次向 <code>news-update.zhuikan.net</code> 发起 POST 请求，上报内容<strong>仅</strong>为：</p>
+    <p>插件每天最多一次向 <code>news-update.zhuikan.net</code> 发起 GET 请求（上报字段编码在 URL query 中，进入访问日志后即完成上报），上报内容<strong>仅</strong>为：</p>
     <table>
       <tr><th>字段</th><th>内容</th><th>示例</th></tr>
       <tr><td><code>pkg</code></td><td>插件包名</td><td><code>dsh-rss-news-daily</code></td></tr>
