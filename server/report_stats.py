@@ -13,6 +13,8 @@ cron（VPS，root）:
 
 幂等：同日重跑覆盖同一报表文件；无新日志行时跳过 commit。
 """
+import hashlib
+import hmac
 import json
 import os
 import sqlite3
@@ -27,6 +29,20 @@ LOG_FILE = os.path.join(LOG_DIR, "news-update.jsonl")
 NGINX_CONTAINER = "nginx"
 STATS_REPO = "/data1/service/zhuikan-stats"  # 私有仓 checkout（deploy key 可写）
 KEEP_DAYS = 90  # 轮转出的 .jsonl 保留天数（对齐隐私承诺"留存不超过 90 天"）
+# 上报签名 key——与 dsh-rss-news-daily/src/update-check.ts 的 REPORT_KEY 一致。
+# 公开源码内：防随手伪造/扫描噪音，不防逆向。
+REPORT_KEY = "9f4c2d7a1e5b83f60c4a9d2e7b153f8c6a0d4e9b2f7a5c3d8e1b6f0a4c9d2e7b"
+
+
+def verify_token(q: dict) -> bool:
+    """复算 t=v1.<hmac16>：hmac(v1|iid|d|pkg|version|companions)。"""
+    iid, d, t = q.get("iid", [""])[0], q.get("d", [""])[0], q.get("t", [""])[0]
+    if not iid or not t.startswith("v1."):
+        return False
+    canon = "v1|%s|%s|%s|%s|%s" % (
+        iid, d, q.get("pkg", [""])[0], q.get("version", [""])[0], q.get("companions", [""])[0])
+    sig = hmac.new(REPORT_KEY.encode(), canon.encode(), hashlib.sha256).hexdigest()[:16]
+    return hmac.compare_digest(t, f"v1.{sig}")
 
 
 def run(*args: str) -> str:
@@ -65,27 +81,33 @@ def parse_reports(path: str) -> list[dict]:
                     comp = {k: str(v) for k, v in json.loads(raw).items()}
                 except (json.JSONDecodeError, AttributeError):
                     pass
-            out.append({"ip": rec.get("ip", "-"), "pkg": pkg, "version": ver,
-                        "companions": comp, "t": rec.get("t", "")})
+            iid = q.get("iid", [""])[0]
+            verified = verify_token(q)
+            # 去重 key：验签通过的 iid 优先（精确到装机），否则回落 /24 截断 IP
+            key = f"iid:{iid}" if (iid and verified) else f"ip:{rec.get('ip', '-')}"
+            out.append({"ip": rec.get("ip", "-"), "iid": iid, "verified": verified, "key": key,
+                        "pkg": pkg, "version": ver, "companions": comp, "t": rec.get("t", "")})
     return out
 
 
-def update_seen(db: sqlite3.Connection, ips: set[str], day: str) -> int:
-    """登记当日独立 IP；返回其中首次出现的数量。"""
+def update_seen(db: sqlite3.Connection, keys: set[str], day: str) -> int:
+    """登记当日独立安装 key（iid: 或 ip: 前缀）；返回其中首次出现的数量。"""
     db.execute("CREATE TABLE IF NOT EXISTS seen (ip TEXT PRIMARY KEY, first_day TEXT)")
+    db.execute("UPDATE seen SET ip = 'ip:' || ip WHERE ip NOT LIKE '%:%'")  # 存量裸 IP 一次性迁移
     have = {r[0] for r in db.execute("SELECT ip FROM seen")}
-    new = ips - have
-    db.executemany("INSERT OR IGNORE INTO seen VALUES (?, ?)", [(ip, day) for ip in new])
+    new = keys - have
+    db.executemany("INSERT OR IGNORE INTO seen VALUES (?, ?)", [(k, day) for k in new])
     db.commit()
     return len(new)
 
 
-def render(day: str, reports: list[dict], new_ips: int) -> str:
-    ips = {r["ip"] for r in reports}
-    by_ip: dict = {}
+def render(day: str, reports: list[dict], new_installs: int) -> str:
+    keys = {r["key"] for r in reports}
+    verified_n = sum(1 for r in reports if r["verified"])
+    by_key: dict = {}
     for r in sorted(reports, key=lambda x: x["t"]):
-        by_ip[r["ip"]] = r  # 同 IP 多次上报取最后一次的装配状态
-    uniq = list(by_ip.values())
+        by_key[r["key"]] = r  # 同装机多次上报取最后一次的装配状态
+    uniq = list(by_key.values())
 
     pv = Counter((r["pkg"], r["version"]) for r in uniq)
     cv = Counter((n, v) for r in uniq for n, v in r["companions"].items())
@@ -110,9 +132,9 @@ def render(day: str, reports: list[dict], new_ips: int) -> str:
 
     return f"""# {day} 插件活跃日报{span}
 
-- 上报请求数：{len(reports)}
-- 独立安装（/24 截断 IP 去重）：**{len(ips)}**
-- 第一天使用（新装）：**{new_ips}** · 回访：{len(ips) - new_ips}
+- 上报请求数：{len(reports)}（验签通过 {verified_n} · 无/无效签名 {len(reports) - verified_n}）
+- 独立安装（iid 验签去重，无签名回落 /24 IP）：**{len(keys)}**
+- 第一天使用（新装）：**{new_installs}** · 回访：{len(keys) - new_installs}
 
 ## 版本分布（独立安装数）
 
@@ -171,13 +193,13 @@ def main() -> int:
     reports = parse_reports(sliced)
     db = sqlite3.connect(os.path.join(repo, "state.db"))
     try:
-        new_ips = update_seen(db, {r["ip"] for r in reports}, day)
+        new_installs = update_seen(db, {r["key"] for r in reports}, day)
     finally:
         db.close()
 
     os.makedirs(os.path.join(repo, "reports"), exist_ok=True)
     with open(os.path.join(repo, "reports", f"{day}.md"), "w", encoding="utf-8") as f:
-        f.write(render(day, reports, new_ips))
+        f.write(render(day, reports, new_installs))
     update_index(repo, day)
     publish(repo, day)
 

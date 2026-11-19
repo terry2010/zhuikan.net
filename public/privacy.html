@@ -39,9 +39,12 @@ if (matchMedia('(prefers-color-scheme: light)').matches) document.documentElemen
       <tr><td><code>pkg</code></td><td>插件包名</td><td><code>dsh-rss-news-daily</code></td></tr>
       <tr><td><code>version</code></td><td>当前安装版本</td><td><code>1.2.0</code></td></tr>
       <tr><td><code>companions</code></td><td>已安装伴随插件及版本</td><td><code>{"dsh-rss-news-zhuikan":"0.2.0"}</code></td></tr>
+      <tr><td><code>iid</code></td><td>随机安装标识：首跑生成的 UUID，存于本地 meta，与机器/账号无关</td><td><code>8f3a…b2c1</code></td></tr>
+      <tr><td><code>d</code></td><td>上报日期（本地时区）</td><td><code>2026-11-19</code></td></tr>
+      <tr><td><code>t</code></td><td>完整性签名（绑定以上字段，防统计污染）</td><td><code>v1.1331…9ae5</code></td></tr>
     </table>
     <ul>
-      <li><strong>不包含</strong>：安装 ID、机器标识、操作系统、用户名、订阅内容、阅读记录等任何其他信息。</li>
+      <li><strong>不包含</strong>：机器标识、操作系统、用户名、订阅内容、阅读记录等任何其他信息。<code>iid</code> 是随机生成的匿名 ID，重装插件即重置。</li>
       <li>服务端日志可见：请求时间戳与来源 IP（IP 截断至 /24 后落盘，留存不超过 90 天）。这等同于一次"活跃装机量"计数。</li>
       <li>响应仅用于版本比较与展示升级提示，不执行响应中的任何内容。</li>
     </ul>
