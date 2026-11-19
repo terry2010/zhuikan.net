@@ -82,8 +82,14 @@ def update_seen(db: sqlite3.Connection, ips: set[str], day: str) -> int:
 
 def render(day: str, reports: list[dict], new_ips: int) -> str:
     ips = {r["ip"] for r in reports}
-    pv = Counter((r["pkg"], r["version"]) for r in reports)
-    cv = Counter((name, ver) for r in reports for name, ver in r["companions"].items())
+    by_ip: dict = {}
+    for r in sorted(reports, key=lambda x: x["t"]):
+        by_ip[r["ip"]] = r  # 同 IP 多次上报取最后一次的装配状态
+    uniq = list(by_ip.values())
+
+    pv = Counter((r["pkg"], r["version"]) for r in uniq)
+    cv = Counter((n, v) for r in uniq for n, v in r["companions"].items())
+    cc = Counter(len(r["companions"]) for r in uniq)
     span = ""
     if reports:
         ts = sorted(r["t"] for r in reports if r["t"])
@@ -94,21 +100,29 @@ def render(day: str, reports: list[dict], new_ips: int) -> str:
         if not counter:
             return "_无数据_\n"
         rows = "\n".join(f"| {k[0]} | {k[1]} | {n} |" for k, n in counter.most_common())
-        return f"| {c1} | {c2} | 安装数 |\n|---|---|---|\n{rows}\n"
+        return f"| {c1} | {c2} | 人数 |\n|---|---|---|\n{rows}\n"
+
+    def cc_table() -> str:
+        if not cc:
+            return "_无数据_\n"
+        rows = "\n".join(f"| {n} 个伴随插件 | {c} |" for n, c in sorted(cc.items()))
+        return f"| 伴随插件个数 | 人数 |\n|---|---|\n{rows}\n"
 
     return f"""# {day} 插件活跃日报{span}
 
-- 上报请求数：**{len(reports)}**
+- 上报请求数：{len(reports)}
 - 独立安装（/24 截断 IP 去重）：**{len(ips)}**
-- 其中首次出现（新装）：**{new_ips}** · 回访：{len(ips) - new_ips}
+- 第一天使用（新装）：**{new_ips}** · 回访：{len(ips) - new_ips}
 
-## 版本分布（按 pkg × version 去重 IP 前的请求数）
+## 版本分布（独立安装数）
 
 {table(pv, "pkg", "version")}
-## 伴随插件装配（出现在上报 companions 里的 pkg × version）
+## 伴随插件装配（独立安装数）
 
 {table(cv, "companion", "version")}
-"""
+## 每人装配的伴随插件个数
+
+{cc_table()}"""
 
 
 def update_index(repo: str, day: str) -> None:
