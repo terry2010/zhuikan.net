@@ -2,7 +2,7 @@
 """每日统计管线：轮转 news-update.jsonl → 聚合 → markdown 报表 → push 私有仓。
 
 cron（VPS，root）:
-  30 4 * * * /usr/bin/python3 /data1/htdocs/zhuikan.net/server/report_stats.py >> /tmp/zhuikan-stats.log 2>&1
+  0 0 * * * /usr/bin/python3 /data1/htdocs/zhuikan.net/server/report_stats.py >> /tmp/zhuikan-stats.log 2>&1
 
 流程:
   1. mv /data1/log/nginx/news-update.jsonl → news-update.<日期>.jsonl
