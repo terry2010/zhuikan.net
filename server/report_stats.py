@@ -52,8 +52,8 @@ def parse_reports(path: str) -> list[dict]:
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            if rec.get("uri") != "/v1/check" or rec.get("m") != "GET":
-                continue
+            if rec.get("uri") not in ("/v1/check", "/latest.json") or rec.get("m") != "GET":
+                continue  # /latest.json 兼容旧 conf（try_files 内部重写把 uri 改成了文件名）
             q = parse_qs(rec.get("args", ""))
             pkg, ver = (q.get("pkg", [""])[0], q.get("version", [""])[0])
             if not pkg or not ver:
