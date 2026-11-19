@@ -64,7 +64,7 @@ docker exec nginx nginx -t && docker exec nginx nginx -s reload
 ```
 */5  * * * * /data1/htdocs/zhuikan.net/server/deploy_check.sh >> /tmp/zhuikan-net-deploy.log 2>&1
 */30 * * * * /usr/bin/python3 /data1/htdocs/zhuikan.net/server/fetch_versions.py >> /tmp/zhuikan-versions.log 2>&1
-30 4 * * * * /usr/bin/python3 /data1/htdocs/zhuikan.net/server/report_stats.py >> /tmp/zhuikan-stats.log 2>&1
+30 4 * * * /usr/bin/python3 /data1/htdocs/zhuikan.net/server/report_stats.py >> /tmp/zhuikan-stats.log 2>&1
 ```
 
 ## 五、发新版本公告
